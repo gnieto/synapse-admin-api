@@ -1,8 +1,7 @@
 //! [GET /_synapse/admin/v2/users/:user_id](https://github.com/matrix-org/synapse/blob/master/docs/admin_api/user_admin_api.rst#list-accountshttps://github.com/matrix-org/synapse/blob/master/docs/admin_api/user_admin_api.rst#query-user-account)
 
 use ruma::{
-    api::{metadata, request, response, Metadata},
-    UInt, UserId,
+    api::{metadata, request, response, Metadata}, OwnedUserId, UInt, UserId
 };
 use serde::{Deserialize, Serialize};
 
@@ -17,7 +16,7 @@ const METADATA: Metadata = metadata! {
 
 #[request]
 #[derive(Default)]
-pub struct Request<'a> {
+pub struct Request {
     /// Offset in the returned list.
     ///
     /// Defaults to 0.
@@ -35,13 +34,13 @@ pub struct Request<'a> {
     /// This parameter is ignored when using the name parameter.
     #[serde(skip_serializing_if = "Option::is_none")]
     #[ruma_api(query)]
-    pub user_id: Option<&'a UserId>,
+    pub user_id: Option<OwnedUserId>,
 
     /// name is optional and filters to only return users with user ID localparts or displaynames
     /// that contain this value.
     #[serde(skip_serializing_if = "Option::is_none")]
     #[ruma_api(query)]
-    pub name: Option<&'a str>,
+    pub name: Option<String>,
 
     /// The parameter guests is optional and if false will exclude guest users.
     ///
@@ -74,7 +73,7 @@ pub struct Response {
     pub total: UInt,
 }
 
-impl<'a> Request<'a> {
+impl Request {
     /// Creates an empty `Request`.
     pub fn new() -> Self {
         Default::default()

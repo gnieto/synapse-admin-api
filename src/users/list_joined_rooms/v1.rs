@@ -1,8 +1,7 @@
 //! [GET /_synapse/admin/v1/users/:user_id/joined_rooms](https://github.com/matrix-org/synapse/blob/master/docs/admin_api/user_admin_api.rst#list-room-memberships-of-an-user)
 
 use ruma::{
-    api::{metadata, request, response, Metadata},
-    OwnedRoomId, UInt, UserId,
+    api::{metadata, request, response, Metadata}, OwnedRoomId, OwnedUserId, UInt, UserId
 };
 
 const METADATA: Metadata = metadata! {
@@ -15,10 +14,10 @@ const METADATA: Metadata = metadata! {
 };
 
 #[request]
-pub struct Request<'a> {
+pub struct Request {
     /// User ID
     #[ruma_api(path)]
-    pub user_id: &'a UserId,
+    pub user_id: OwnedUserId,
 }
 
 #[response]
@@ -30,9 +29,9 @@ pub struct Response {
     pub total: UInt,
 }
 
-impl<'a> Request<'a> {
+impl Request {
     /// Creates an `Request` with the given user ID.
-    pub fn new(user_id: &'a UserId) -> Self {
+    pub fn new(user_id: OwnedUserId) -> Self {
         Self { user_id }
     }
 }
