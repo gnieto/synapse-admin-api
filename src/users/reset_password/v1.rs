@@ -1,7 +1,7 @@
 //! [POST /_synapse/admin/v1/reset_password/:user_id](https://github.com/matrix-org/synapse/blob/master/docs/admin_api/user_admin_api.rst#reset-password)
 
 use ruma::{
-    api::{metadata, request, response, Metadata}, OwnedUserId, UserId
+    api::{metadata, request, response, Metadata}, OwnedUserId
 };
 
 const METADATA: Metadata = metadata! {

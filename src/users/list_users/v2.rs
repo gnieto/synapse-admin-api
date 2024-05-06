@@ -1,7 +1,7 @@
 //! [GET /_synapse/admin/v2/users/:user_id](https://github.com/matrix-org/synapse/blob/master/docs/admin_api/user_admin_api.rst#list-accountshttps://github.com/matrix-org/synapse/blob/master/docs/admin_api/user_admin_api.rst#query-user-account)
 
 use ruma::{
-    api::{metadata, request, response, Metadata}, OwnedUserId, UInt, UserId
+    api::{metadata, request, response, Metadata}, OwnedUserId, UInt
 };
 use serde::{Deserialize, Serialize};
 
